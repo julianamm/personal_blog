@@ -1,0 +1,43 @@
+<div>
+  <div>
+    <h1>Sign Up</h1>
+
+    <%= form_for @user do |f| %>
+      <% if @user.errors.any? %>
+        <p>
+          <%= @user.errors.full_messages.join(', ') %>
+        </p>
+      <% end %>
+      <div>
+        <div>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <%= f.label :email%>
+          <%= f.email_field :email %>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <%= f.label :password%>
+          <%= f.password_field :password %>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <%= f.label :password_confirmation%>
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
+
+      <%= f.submit "Sign Up"%>
+    <% end %>
+      
+  </div>
+</div>

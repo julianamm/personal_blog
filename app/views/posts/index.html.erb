@@ -1,0 +1,26 @@
+<div id="posts">
+  <ul class="posts-list">
+    <% @posts.each do |post| %>
+      <li>
+        <div class="post-user">
+        <div class="user-photo"></div>
+        <span class="username">@<%= post.user&.name %></span>
+        </div>
+        <div class="post-img-card"></div>
+        
+        <div class="post-content">
+          <span class="username-content"><%= post.user&.name %></span>
+          <span class=""><%= link_to(
+              post.body,
+              post_path(post.id),
+            ) %>
+            <br />
+          </span>
+          <small class="post-time">
+            <%= time_ago_in_words(post.created_at) %> ago
+          </small>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

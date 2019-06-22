@@ -1,0 +1,19 @@
+<div>
+  <h1>Admin Dashboard</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Created At</th>
+        <th>Is Admin?</th>
+      </tr>
+    </thead>
+    <tbody><% @users.each do |user| %><tr>
+        <td><%=user.name %></td>
+        <td><%=user.email %></td>
+        <td><%=user.created_at %></td>
+        <td><%=user.admin? %></td>
+      </tr><% end %></tbody>
+  </table>
+</div>

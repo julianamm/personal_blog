@@ -1,0 +1,21 @@
+<div>
+  <%= form_for(@post) do |f| %>
+    <% if @post.errors.present? %>
+      <p>
+        <%= @post.errors.full_messages.join(', ') %>
+      </p>
+    <% end %>
+
+    <div>
+      <%= f.label(:title) %>
+      <%= f.text_field(:tittle) %>
+    </div>
+
+    <div>
+      <%= f.label(:body) %>
+      <%= f.text_area(:body) %>
+    </div>
+
+    <%= f.submit %>
+  <% end %>
+</div>

@@ -1,0 +1,85 @@
+<div id="single-post">
+    <div class="left-card">
+      <div class="single-img-card"></div>
+      <% if user_signed_in? %>
+        <div class="icons">
+          <% if can?(:edit, @post) %>
+            <%= link_to edit_post_path(@post), class: "icon ed" do %>
+              <div class="edit"></div>
+            <% end %>
+          <% end %>
+
+          <% if can?(:delete, @post) %>
+            <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "icon del" do %>
+              <div class="delete"></div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <p class="single-post-content"><%= @post.body %></p>
+    </div>
+
+    <div class="right-card">
+      <div class="single-post-card">
+        <div class="user-photo-md"></div>
+        <p class="single-post-username"><%= @post.user&.name || "[Deleted]" %> </p>
+        <small class="single-post-time">
+          <%= time_ago_in_words(@post.created_at) %> ago
+        </small>
+      </div>
+      <div class="comments">
+        <% @comments.each do |comment| %>
+            <div class="user-photo-small "></div>
+        <div class="">
+            <strong class="single-comment-username">
+              <%= comment.user&.name || "[DELETED]" %>
+            </strong>
+            <%= comment.body %> <br />
+
+            <% if user_signed_in? && can?(:delete, comment) %>
+              <small>
+                <%= time_ago_in_words(comment.created_at) %> ago
+              </small>
+              •
+              <small>
+                <%= link_to(
+                            "delete",
+                            post_comment_path(@post, comment),
+                            method: :delete,
+                            data: {
+                            confirm: "Are you sure?"
+                            }
+                          ) %>    
+              </small>
+              <small>
+                <%= link_to(
+                          post_comment_path(@post, comment), 
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' }) do %>
+                          <div class="delete-x"></div>
+                <% end %>
+              </small>
+            <% end %>
+            <br><br>
+        </div>
+        <% end %>
+      </div>
+      <div class="comment-form">
+        <%= form_for [@post, @comment] do |f| %>
+        <% if @comment.errors.present? %>
+          <p>
+            <%= @comment.errors.full_messages.join(', ') %>
+          </p>
+          <% end %>
+          <%#= f.hidden_field :post_id, value: @post.id %>
+          <div class="form">
+            <textarea class="form-control" rows="3" placeholder="add a comment..." name="comment[body]"
+              id="comment_body"></textarea>
+            <%= button_tag( :class => "btn-plus") do %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+</div>
+
